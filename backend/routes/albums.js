@@ -19,7 +19,7 @@ router.route('/add').post((req, res) => {
     const artist = req.body.artist;
     const duration = Number(req.body.duration);
     const releaseDate = Date.parse(req.body.releaseDate);
-    const nrOfSongs = (req.body.nrOfSongs);
+    const nrOfSongs = Number(req.body.nrOfSongs);
 
 
     const newAlbum = new Album({

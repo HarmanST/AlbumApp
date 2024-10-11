@@ -101,11 +101,14 @@ export default class CreateAlbum extends Component {
         console.log("Album data before POST:", album);  // Check if this is correct
 
         axios.post('http://localhost:5000/albums/add', album)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data);
+                window.location = '/';
+            })
             .catch(error => console.log(error));
 
 
-        window.location = '/';
+
     }
 
 
