@@ -60,9 +60,10 @@ const EditAlbum = () => {
         console.log(album);
 
         axios.post(`http://localhost:5000/albums/update/${id}`, album)
-            .then(res => console.log(res.data));
-
-        window.location = '/';
+            .then(res => {
+                console.log(res.data)
+                window.location = '/';
+            });
     };
 
     return (
