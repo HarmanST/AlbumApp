@@ -36,6 +36,23 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// GET request to fetch a random album. (ORDER OF THE ROUTES IS IMPORTANT).
+router.route('/random').get((req, res) => {
+    // Use MongoDB's aggregate function to select a random album from the collection
+    Album.aggregate([{ $sample: { size: 1 } }])  // $sample selects a random document, 'size: 1' returns one random album
+        .then(album => {
+            // Check if an album was returned
+            // The aggregate function always returns an array, even if there's only one result
+            if (album.length > 0) {
+                res.json(album[0]);  // Return the first (and only) album in the array
+            } else {
+                res.status(404).json('No albums found');  // Send a 404 error if no albums exist in the database
+            }
+        })
+        .catch(err => res.status(400).json('Error: ' + err));  // Handle any errors that occur during the aggregation process
+});
+
+
 //Route for getting an album based on id
 router.route('/:id').get((req, res) => {
     Album.findById(req.params.id)
